@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./core:/usr/share/nginx/html
+      - ./configs/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8190:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+    links:
+      - php-fpm
+    depends_on:
+      - php-fpm
+    networks:
+      - oca_network
+
+  php-fpm:
+    build: ./php
+    restart: always
+    user: "1000:1000" 
+    container_name: php-coreapi
+    volumes:
+      - ./core:/usr/share/nginx/html
+    networks:
+      - oca_network
+
+
+networks:
+  oca_network:
+    driver: bridge
