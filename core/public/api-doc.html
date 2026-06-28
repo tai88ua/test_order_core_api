@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile Expert Price API — Swagger UI</title>
+    <meta name="description" content="Interactive API documentation for the Tile Expert Price API">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1117;
+            min-height: 100vh;
+        }
+
+        .api-header {
+            background: linear-gradient(135deg, #1a1d2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 32px 40px;
+            border-bottom: 1px solid rgba(99, 179, 237, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .api-header-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #63b3ed, #4299e1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .api-header-text h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e2e8f0;
+            letter-spacing: -0.5px;
+        }
+
+        .api-header-text p {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .api-header-badge {
+            margin-left: auto;
+            background: rgba(99, 179, 237, 0.15);
+            color: #63b3ed;
+            border: 1px solid rgba(99, 179, 237, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        #swagger-ui {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Override Swagger UI styles for dark look */
+        .swagger-ui {
+            color: #e2e8f0 !important;
+        }
+
+        .swagger-ui .info .title {
+            color: #e2e8f0 !important;
+        }
+
+        .swagger-ui .info p, .swagger-ui .info li,
+        .swagger-ui .info a {
+            color: #a0aec0 !important;
+        }
+
+        .swagger-ui .scheme-container {
+            background: #1a202c !important;
+            border-bottom: 1px solid #2d3748 !important;
+            box-shadow: none !important;
+        }
+
+        .swagger-ui .opblock-tag {
+            border-bottom: 1px solid #2d3748 !important;
+            color: #e2e8f0 !important;
+        }
+
+        .swagger-ui .opblock-tag:hover {
+            background: rgba(99, 179, 237, 0.05) !important;
+        }
+
+        .swagger-ui .opblock {
+            border-radius: 8px !important;
+            border: 1px solid #2d3748 !important;
+            box-shadow: none !important;
+            margin: 8px 0 !important;
+            overflow: hidden;
+        }
+
+        .swagger-ui .opblock .opblock-summary {
+            border: none !important;
+        }
+
+        .swagger-ui .opblock.opblock-get .opblock-summary-method {
+            background: #2b6cb0 !important;
+        }
+
+        .swagger-ui .opblock.opblock-get {
+            background: rgba(43, 108, 176, 0.08) !important;
+            border-color: rgba(43, 108, 176, 0.3) !important;
+        }
+
+        .swagger-ui .opblock .opblock-summary-description {
+            color: #a0aec0 !important;
+        }
+
+        .swagger-ui .opblock .opblock-summary-path {
+            color: #e2e8f0 !important;
+        }
+
+        .swagger-ui .opblock-body {
+            background: #1a202c !important;
+        }
+
+        .swagger-ui .opblock-section-header {
+            background: #171923 !important;
+        }
+
+        .swagger-ui .opblock-section-header h4 {
+            color: #a0aec0 !important;
+        }
+
+        .swagger-ui table thead tr th,
+        .swagger-ui table thead tr td {
+            border-bottom: 1px solid #2d3748 !important;
+            color: #718096 !important;
+        }
+
+        .swagger-ui .parameter__name {
+            color: #63b3ed !important;
+        }
+
+        .swagger-ui .parameter__type {
+            color: #68d391 !important;
+        }
+
+        .swagger-ui textarea,
+        .swagger-ui input[type=text],
+        .swagger-ui select {
+            background: #2d3748 !important;
+            color: #e2e8f0 !important;
+            border: 1px solid #4a5568 !important;
+            border-radius: 6px !important;
+        }
+
+        .swagger-ui .btn.execute {
+            background: linear-gradient(135deg, #3182ce, #2b6cb0) !important;
+            border: none !important;
+            border-radius: 6px !important;
+            color: #fff !important;
+            font-weight: 600 !important;
+            padding: 8px 20px !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .swagger-ui .btn.execute:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.4) !important;
+        }
+
+        .swagger-ui .btn.cancel {
+            border: 1px solid #e53e3e !important;
+            border-radius: 6px !important;
+            color: #e53e3e !important;
+        }
+
+        .swagger-ui .response-col_status {
+            color: #68d391 !important;
+        }
+
+        .swagger-ui .response-col_description {
+            color: #a0aec0 !important;
+        }
+
+        .swagger-ui .microlight {
+            background: #171923 !important;
+            border-radius: 6px !important;
+            padding: 12px !important;
+            color: #a0aec0 !important;
+        }
+
+        .swagger-ui .model-box {
+            background: #1a202c !important;
+        }
+
+        .swagger-ui section.models {
+            border: 1px solid #2d3748 !important;
+            border-radius: 8px !important;
+        }
+
+        .swagger-ui section.models.is-open h4 {
+            border-bottom: 1px solid #2d3748 !important;
+        }
+
+        .swagger-ui .model-title {
+            color: #e2e8f0 !important;
+        }
+
+        .swagger-ui .model .property.primitive {
+            color: #68d391 !important;
+        }
+
+        .swagger-ui .try-out__btn {
+            border: 1px solid #63b3ed !important;
+            color: #63b3ed !important;
+            border-radius: 6px !important;
+        }
+
+        .swagger-ui .try-out__btn:hover {
+            background: rgba(99, 179, 237, 0.1) !important;
+        }
+
+        .swagger-ui .highlight-code .microlight span {
+            color: #a0aec0 !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="api-header">
+    <div class="api-header-icon">🏷️</div>
+    <div class="api-header-text">
+        <h1>Tile Expert Price API</h1>
+        <p>API для получения цены плитки с сайта tile.expert в реальном времени</p>
+    </div>
+    <span class="api-header-badge">v1.0.0</span>
+</div>
+
+<div id="swagger-ui"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+<script>
+    window.onload = function () {
+        SwaggerUIBundle({
+            url: "/api/doc.json",
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIBundle.SwaggerUIStandalonePreset
+            ],
+            layout: "BaseLayout",
+            defaultModelsExpandDepth: 1,
+            defaultModelExpandDepth: 1,
+            tryItOutEnabled: true,
+        });
+    };
+</script>
+</body>
+</html>
