@@ -17,15 +17,21 @@ class TileParserService
     {
         $crawler = new Crawler($html);
 
-        // 1. Try to find the price and URL in JSON-LD
+        // 1. Try to find the price in .js-price-tag (price per square meter)
         $price = 0.0;
+        $priceTag = $crawler->filter('.js-price-tag');
+        if ($priceTag->count() > 0) {
+            $price = (float) $priceTag->first()->attr('data-price-raw');
+        }
+
+        // 2. Try to find the URL and fallback price in JSON-LD
         $url = '';
 
         $scripts = $crawler->filter('script[type="application/ld+json"]');
         foreach ($scripts as $script) {
             $data = json_decode($script->textContent, true);
             if (is_array($data) && ($data['@type'] ?? '') === 'Product') {
-                if (isset($data['offers']['price'])) {
+                if ($price === 0.0 && isset($data['offers']['price'])) {
                     $price = (float) $data['offers']['price'];
                 }
                 if (isset($data['offers']['url'])) {

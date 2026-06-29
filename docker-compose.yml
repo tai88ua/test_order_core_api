@@ -28,6 +28,15 @@ services:
       - ./core:/usr/share/nginx/html
     networks:
       - oca_network
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - ./db:/var/lib/mysql/
+    networks:
+      - oca_network
 
 
 networks:

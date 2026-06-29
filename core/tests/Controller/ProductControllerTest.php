@@ -3,6 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Controller\ProductController;
+use App\Service\ScraperService;
 use App\Service\TileParserService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,20 +19,12 @@ class ProductControllerTest extends TestCase
 
         $tileParserService = new TileParserService();
 
-        // Create a subclass to override fetchHtml so we don't hit the network
-        $controller = new class($tileParserService, $htmlContent) extends ProductController {
-            public function __construct(
-                TileParserService $tileParserService,
-                private readonly string $mockHtml
-            ) {
-                parent::__construct($tileParserService);
-            }
+        // Mock ScraperService
+        $scraperService = $this->createMock(ScraperService::class);
+        $scraperService->method('fetchHtml')
+            ->willReturn($htmlContent);
 
-            protected function fetchHtml(string $url): string|false
-            {
-                return $this->mockHtml;
-            }
-        };
+        $controller = new ProductController($tileParserService);
 
         $request = new Request([
             'factory' => 'marca-corona',
@@ -39,7 +32,7 @@ class ProductControllerTest extends TestCase
             'article' => 'k263-arteseta-camoscio-s000628660'
         ]);
 
-        $response = $controller->getPrice($request);
+        $response = $controller->getPrice($request, $scraperService);
 
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         
@@ -53,13 +46,14 @@ class ProductControllerTest extends TestCase
     public function testGetPriceMissingParams(): void
     {
         $tileParserService = $this->createMock(TileParserService::class);
+        $scraperService = $this->createMock(ScraperService::class);
         $controller = new ProductController($tileParserService);
 
         $request = new Request([
             'factory' => 'marca-corona',
         ]);
 
-        $response = $controller->getPrice($request);
+        $response = $controller->getPrice($request, $scraperService);
 
         $this->assertSame(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
         

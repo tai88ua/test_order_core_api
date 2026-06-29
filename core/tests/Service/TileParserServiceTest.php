@@ -59,4 +59,21 @@ class TileParserServiceTest extends TestCase
         $this->assertSame('sinfonie-dautore', $result->collection);
         $this->assertSame('120simor-morricone', $result->article);
     }
+
+       public function testParsePage2(): void
+    {
+        $service = new TileParserService();
+
+        $htmlPath = __DIR__ . '/../fixtures/tile_page2.html';
+        $this->assertFileExists($htmlPath);
+
+        $html = file_get_contents($htmlPath);
+
+        $result = $service->parse($html);
+
+        $this->assertSame(59.99, $result->price);
+        $this->assertSame('marca-corona', $result->factory);
+        $this->assertSame('arteseta', $result->collection);
+        $this->assertSame('k263-arteseta-camoscio-s000628660', $result->article);
+    }
 }
