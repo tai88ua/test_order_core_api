@@ -7,9 +7,9 @@ RUN docker-php-ext-enable pdo_mysql
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN apt-get -y update
-RUN apt-get install -y libzip-dev
+RUN apt-get install -y libzip-dev libxml2-dev
 
-RUN docker-php-ext-install zip
+RUN docker-php-ext-install zip soap
 
 
 #set work dir
