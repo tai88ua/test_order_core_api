@@ -2,6 +2,7 @@
 
 namespace App\Tests\Service;
 
+use App\Exception\PageNotFoundException;
 use App\Service\TileParserService;
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +42,6 @@ class TileParserServiceTest extends TestCase
         $this->assertSame('k267-arteseta-gypsum-riga-s000628669', $result->article);
     }
 
-
     // https://tile.expert/it/tile/ceramica-euro/sinfonie-dautore/a/120sibee-beethoven
     public function testParseEuro(): void
     {
@@ -60,7 +60,7 @@ class TileParserServiceTest extends TestCase
         $this->assertSame('120simor-morricone', $result->article);
     }
 
-       public function testParsePage2(): void
+    public function testParsePage2(): void
     {
         $service = new TileParserService();
 
@@ -75,5 +75,20 @@ class TileParserServiceTest extends TestCase
         $this->assertSame('marca-corona', $result->factory);
         $this->assertSame('arteseta', $result->collection);
         $this->assertSame('k263-arteseta-camoscio-s000628660', $result->article);
+    }
+
+    public function testParse404ThrowsException(): void
+    {
+        $service = new TileParserService();
+
+        $htmlPath = __DIR__ . '/../fixtures/tile_page404.html';
+        $this->assertFileExists($htmlPath);
+
+        $html = file_get_contents($htmlPath);
+
+        $this->expectException(PageNotFoundException::class);
+        $this->expectExceptionMessage('Product page not found (HTTP 404)');
+
+        $service->parse($html);
     }
 }
