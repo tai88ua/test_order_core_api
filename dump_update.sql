@@ -55,8 +55,8 @@ CREATE TABLE orders (
     
     -- Финансы (исторические слепки на момент заказа)
     discount SMALLINT NULL,
-    delivery_price DOUBLE NULL,
-    delivery_price_euro DOUBLE NULL,
+    delivery_price DECIMAL(10,2) NULL,
+    delivery_price_euro DECIMAL(10,2) NULL,
     pay_type TINYINT NOT NULL,
     payment_euro TINYINT(1) DEFAULT 0 NULL,
     cur_rate DOUBLE DEFAULT 1 NOT NULL COMMENT 'Курс на момент оплаты',
@@ -113,9 +113,9 @@ CREATE TABLE orders_article (
     article_id INT NOT NULL COMMENT 'ID из каталога',
     
     -- Финансовые снимки
-    amount DOUBLE NOT NULL,
-    price DOUBLE NOT NULL,
-    price_eur DOUBLE NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    price_eur DECIMAL(10,2) NULL,
     currency VARCHAR(3) NULL,
     measure VARCHAR(2) NULL,
     
