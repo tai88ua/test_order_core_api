@@ -27,3 +27,6 @@
 
 ## Дамп
 - https://github.com/tai88ua/test_order_core_api/blob/main/dump_update.sql - дамп базы
+
+- Сделана нормализация таблиц orders и orders_article , а так же изменен тип даных c double на decimal у тех полей которые используютяс в финансоых расчетах.
+
