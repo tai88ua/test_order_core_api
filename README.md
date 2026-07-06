@@ -5,6 +5,8 @@
    ```bash
    make up
    ```
+1.2. Примечание по поводу запуска: у меня установлен docker-compose (в старом формате). Возможно, на вашей машине уже установлен docker compose. В этом случае вместо docker compose up -d нужно будет запустить docker-compose up -d
+
 2. Установить зависимости:
    ```bash
    make install
@@ -28,5 +30,4 @@
 ## Дамп
 - https://github.com/tai88ua/test_order_core_api/blob/main/dump_update.sql - дамп базы
 
-- Сделана нормализация таблиц orders и orders_article , а так же изменен тип даных c double на decimal у тех полей которые используютяс в финансоых расчетах.
-
+- Сделана нормализация таблиц orders и orders_article , а также изменен тип данных c double на decimal у тех полей которые используются в финансовых расчетах.

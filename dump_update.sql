@@ -59,7 +59,7 @@ CREATE TABLE orders (
     delivery_price_euro DECIMAL(10,2) NULL,
     pay_type TINYINT NOT NULL,
     payment_euro TINYINT(1) DEFAULT 0 NULL,
-    cur_rate DOUBLE DEFAULT 1 NOT NULL COMMENT 'Курс на момент оплаты',
+    cur_rate DECIMAL(10,2) DEFAULT 1 NOT NULL COMMENT 'Курс на момент оплаты',
     currency VARCHAR(3) DEFAULT 'EUR' NOT NULL,
     measure VARCHAR(3) DEFAULT 'm' NOT NULL,
     

@@ -22,7 +22,6 @@ services:
   php-fpm:
     build: ./php
     restart: always
-    user: "1000:1000" 
     container_name: php-coreapi
     volumes:
       - ./core:/usr/share/nginx/html
